@@ -21,28 +21,17 @@ from typing import List
 
 # Brute force method, O(n^2)
 def runningSum(nums: List[int]) -> List[int]:
-    summation_list = nums[:1]
+    summation_list = []
+    summation_list.append(nums[0])
 
     for i in range(1, len(nums)):
-        sum = 0
-        # i + 1 because range stops at provided number -1 ex. given num 5, range is 0 - 4 
-        for j in range(i + 1):
-            sum += nums[j]
-        summation_list.append(sum)
-    
-    return summation_list
-   
-# O(n)      
-def runningSum2(nums: List[int]) -> List[int]:
-    summation_list = []
-    
-    for num in nums:
-        summation_list.append(int((num + 1) * num / 2))
-    
+        summation_list.append(summation_list[i - 1] + nums[i])
+
     return summation_list
 
 
-nums = [1,2,3,4] 
+nums = [1, 2, 3, 4] 
+nums_2 = [1, 1, 1, 1]
 
 print(runningSum(nums))
-print(runningSum2(nums))
+print(runningSum(nums_2))
