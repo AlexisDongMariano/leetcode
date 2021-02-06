@@ -53,6 +53,21 @@ def remove_outer_parentheses(S):
     return ''.join(output)
 
 
+def remove_outer_parentheses2(S):
+    count = 0
+    p_stack = []
+
+    for p in S:
+        if p == '(' and count > 0:
+            p_stack.append(p)
+        if p == ')' and count > 1:
+            p_stack.append(p)
+        count += 1 if p == '(' else -1
+
+    return ''.join(p_stack)
+
+
 input = '(()())(())'
 
 print(remove_outer_parentheses(input))
+print(remove_outer_parentheses2(input))
