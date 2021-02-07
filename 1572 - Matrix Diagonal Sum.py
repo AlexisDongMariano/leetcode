@@ -43,8 +43,31 @@ def diagonal_sum(mat):
     return total
 
 
+def diagonal_sum2(mat):
+    n = len(mat)
+    n_half = n // 2
+    total = 0
+
+    for i in range(n):
+        total += mat[i][i]
+        total += mat[i][n - 1 - i]
+
+    if n % 2 != 0:
+        total -= mat[n_half][n_half]
+    
+    return total
+
+
 mat = [[1,2,3],
-        [4,5,6],
-        [7,8,9]]
+    [4,5,6],
+    [7,8,9]]
+
+mat2 = [[1,1,1,1],
+    [1,1,1,1],
+    [1,1,1,1],
+    [1,1,1,1]]
 
 print(diagonal_sum(mat))
+print(diagonal_sum(mat2))
+print(diagonal_sum2(mat))
+print(diagonal_sum2(mat2))
