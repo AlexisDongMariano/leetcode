@@ -30,22 +30,16 @@ def self_dividing_numbers(left, right):
     num = left
     output = []
     while num <= right:
-        quotient = remainder = 1
+        quotient, remainder = num, 1
         is_self_dividing = True
         while quotient != 0 and remainder != 0:
-            quotient, remainder = divmod(num, 10)
-            print(num)
-            print('quotient:', quotient, 'remainder:', remainder)
-            input()
+            quotient, remainder = divmod(quotient, 10)
             if remainder == 0 or num % remainder != 0:
                 is_self_dividing = False
                 break
-        
         if is_self_dividing:
             output.append(num)
-        
         num += 1
-    
     return output
 
 
