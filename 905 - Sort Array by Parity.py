@@ -25,6 +25,7 @@
 # ==============================
 
 
+# 0(n) but uses more memory
 def sort_by_parity(A):
     odd = []
     output = []
@@ -34,8 +35,27 @@ def sort_by_parity(A):
     return output
 
 
+# 0(logN), not the fastest but cleaner and elegant
+def sort_by_parity2(A):
+    return sorted(A, key=lambda x: x % 2)
+
+
+# 0(n), efficient as well with memory, uses 2 pointer
+def sort_by_parity3(A):
+    l, r = 0, len(A) - 1
+    while l <= r:
+        if A[l] % 2 == 0:
+            l += 1
+        else:
+            A[l], A[r] = A[r], A[l]
+            r -= 1
+    return A
+
+
 A = [3, 1, 2, 4]
 print(sort_by_parity(A))
+print(sort_by_parity2(A))
+print(sort_by_parity3(A))
 
 
 
