@@ -2,45 +2,47 @@
 #         Information
 # ==============================
 
-# Title: 1720 - Decode XORed Array
-# Link: https://leetcode.com/problems/decode-xored-array/
+# Title: 942 - DI String Match
+# Link: https://leetcode.com/problems/di-string-match/
 # Difficulty: Easy
 # Language: Python
 
 # Problem:
-# Given two arrays of integers nums and index. Your task is to create target array under the following rules:
-# Initially target array is empty.
-# From left to right read nums[i] and index[i], insert at index index[i] the value nums[i] in target array.
-# Repeat the previous step until there are no elements to read in nums and index.
-# Return the target array.
-# It is guaranteed that the insertion operations will be valid.
+# Given a string S that only contains "I" (increase) or "D" (decrease),
+# let N = S.length.
+
+# Return any permutation A of [0, 1, ..., N] such that for all i = 0, ..., N-1:
+
+# If S[i] == "I", then A[i] < A[i+1]
+# If S[i] == "D", then A[i] > A[i+1]
 
 # Example
-    # Input: nums = [0,1,2,3,4], index = [0,1,2,2,1]
-    # Output: [0,4,1,3,2]
-    # Explanation:
-    # nums       index     target
-    # 0            0        [0]
-    # 1            1        [0,1]
-    # 2            2        [0,1,2]
-    # 3            2        [0,1,3,2]
-    # 4            1        [0,4,1,3,2]
+# Input: "IDID"
+# Output: [0,4,1,3,2]
+
+# Input: "III"
+# Output: [0,1,2,3]
 
 # ==============================
 #         Solution
 # ==============================
 
 
-def create_target_array(nums, index):
+def di_string_match(input):
+    lo = 0
+    hi = len(input)
     output = []
-
-    for i in range(len(index)):
-        output.insert(index[i], nums[i])
-    
+    for i in input:
+        if i.upper() == 'I':
+            output.append(lo)
+            lo += 1
+        else:
+            output.append(hi)
+            hi -= 1
+    output.append(hi)
     return output
 
-
-nums = [0,1,2,3,4]
-index = [0,1,2,2,1]
-
-print(create_target_array(nums, index))
+input = 'IDID'
+input2 = 'III'
+print(di_string_match(input))
+print(di_string_match(input2))
