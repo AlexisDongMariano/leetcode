@@ -2,60 +2,53 @@
 #         Information
 # ==============================
 
-# Title: 1 - Two Sum
-# Link: https://leetcode.com/problems/two-sum/description/
+# Title: 461 - Hamming Distance
+# Link: https://leetcode.com/problems/hamming-distance/
 # Difficulty: Easy
 # Language: Python
 
 # Problem:
-# Given an array of integers nums and an integer target, return indices of the
-# two numbers such that they add up to target.
-# You may assume that each input would have exactly one solution, and you may
-# not use the same element twice.
-# You can return the answer in any order.
+# The Hamming distance between two integers is the number of positions at which
+#  the corresponding bits are different.
+
+# Given two integers x and y, calculate the Hamming distance.
+
+# Note:
+# 0 ≤ x, y < 231.
 
 # Example
-# Input: nums = [2,7,11,15], target = 9
-# Output: [0,1]
-# Output: Because nums[0] + nums[1] == 9, we return [0, 1].
+# Input: x = 1, y = 4
+
+# Output: 2
+
+# Explanation:
+# 1   (0 0 0 1)
+# 4   (0 1 0 0)
+#        ↑   ↑
 
 # ==============================
 #         Solution
 # ==============================
 
-# 0(n^2)
-def two_sum(nums, target):
-    length = len(nums)
 
-    for i in range(length - 1):
-        for j in range(i + 1, length):
-            if nums[i] + nums[j] == target:
-                return [i, j]
+def hamming_distance(x, y):
+    x_bin = bin(x)[2:]
+    y_bin = bin(y)[2:]
+    x_n = len(x_bin)
+    y_n = len(y_bin)
+    output = 0
 
-
-# 0(n)
-def two_sum2(nums, target):
-    if not nums:
-        return 'list is empty'
-    
-    if type(target) != int:
-        return 'target is not a valid integer'
-
-    values = {}
-
-    for idx, num in enumerate(nums):
-        diff = target - num
-
-        if num in values.keys():
-            return [values[num], idx]
-        else:
-            values[diff] = idx
-    
-    return 'no match'
+    if y_n > x_n:
+        x_bin = ''.join((y_n - x_n) * ['0']) + x_bin
+    else:
+        y_bin = ''.join((x_n - y_n) * ['0']) + y_bin
         
+    for i in range(len(x_bin)):
+        if not x_bin[i] == y_bin[i]:
+            output += 1
+    return output
 
-nums = [2,7,11,15]
-target = 9
 
-print(two_sum(nums, target))
-print(two_sum2(nums, target))
+x = 1
+y = 4
+print(hamming_distance(x, y))
