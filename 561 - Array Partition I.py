@@ -2,64 +2,46 @@
 #         Information
 # ==============================
 
-# Title: 650 - Robot Return to Origin
-# Link: https://leetcode.com/problems/robot-return-to-origin/
+# Title: 561 - Array Partition I
+# Link: https://leetcode.com/problems/array-partition-i/
 # Difficulty: Easy
 # Language: Python
 
 # Problem:
-# There is a robot starting at position (0, 0), the origin, on a 2D plane. 
-# Given a sequence of its moves, judge if this robot ends up at (0, 0) after it
-# completes its moves.
-
-# The move sequence is represented by a string, and the character moves[i]
-# represents its ith move. Valid moves are R (right), L (left), U (up), and D
-# (down). If the robot returns to the origin after it finishes all of its
-# moves, return true. Otherwise, return false.
-
-# Note: The way that the robot is "facing" is irrelevant. "R" will always make
-# the robot move to the right once, "L" will always make it move left, etc.
-# Also, assume that the magnitude of the robot's movement is the same for each
-# move.
+# Given an integer array nums of 2n integers, group these integers into n pairs
+# (a1, b1), (a2, b2), ..., (an, bn) such that the sum of min(ai, bi) for all i
+# is maximized. Return the maximized sum.
 
 # Example
-# Input: moves = "UD"
-# Output: true
-# Explanation: The robot moves up once, and then down once. All moves have the
-# same magnitude, so it ended up at the origin where it started. Therefore, we
-# return true.
+# Input: nums = [1,4,3,2]
+# Output: 4
+# Explanation: All possible pairings (ignoring the ordering of elements) are:
+# 1. (1, 4), (2, 3) -> min(1, 4) + min(2, 3) = 1 + 2 = 3
+# 2. (1, 3), (2, 4) -> min(1, 3) + min(2, 4) = 1 + 2 = 3
+# 3. (1, 2), (3, 4) -> min(1, 2) + min(3, 4) = 1 + 3 = 4
+# So the maximum possible sum is 4.
 
 # ==============================
 #         Solution
 # ==============================
 
 
-def robot_return(moves):
-    h = 0
-    v = 0
-    move_map = {
-        'L': -1,
-        'D': -1,
-        'U': 1,
-    }
-
-    for move in moves:
-        move = move.upper()
-        if move == 'L':
-            h -= 1
-        elif move == 'R':
-            h += 1
-        elif move == 'U':
-            v += 1
-        elif move == 'D':
-            v -= 1
-    
-    if h == 0 and v == 0:
-        return True
-    return False
+def array_pair_sum(nums):
+    output = 0
+    sorted_nums = sorted(nums)
+    for i in range(0, len(sorted_nums) - 1, 2):
+        output += min(sorted_nums[i], sorted_nums[i + 1])
+    return output
 
 
-moves = "UD"
-moves2 = "LL"
-print(robot_return(moves))
-print(robot_return(moves2))
+def array_pair_sum2(nums):
+    sorted_nums = sorted(nums)
+    return sum(sorted_nums[::2])
+
+
+nums = [1, 4, 3, 2]
+nums2 = [6,2,6,5,1,2]
+print(array_pair_sum(nums))
+print(array_pair_sum(nums2))
+print(array_pair_sum2(nums))
+print(array_pair_sum2(nums2))
