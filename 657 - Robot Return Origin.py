@@ -34,14 +34,10 @@
 # ==============================
 
 
+# T: 0(n)
 def robot_return(moves):
     h = 0
     v = 0
-    move_map = {
-        'L': -1,
-        'D': -1,
-        'U': 1,
-    }
 
     for move in moves:
         move = move.upper()
