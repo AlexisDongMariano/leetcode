@@ -2,62 +2,60 @@
 #         Information
 # ==============================
 
-# Title: 1436 - Destination City
-# Link: https://leetcode.com/problems/destination-city/
+# Title: 1051 - Height Checker
+# Link: https://leetcode.com/problems/height-checker/
 # Difficulty: Easy
 # Language: Python
 
 # Problem:
-# You are given the array paths, where paths[i] = [cityAi, cityBi] means there exists
-# a direct path going from cityAi to cityBi. Return the destination city, that is, the
-# city without any path outgoing to another city.
-#
-# It is guaranteed that the graph of paths forms a line without any loop, therefore,
-# there will be exactly one destination city.
+# Students are asked to stand in non-decreasing order of heights for an annual
+# photo.
+
+# Return the minimum number of students that must move in order for all students
+# to be standing in non-decreasing order of height.
+
+# Notice that when a group of students is selected they can reorder in any
+# possible way between themselves and the non selected students remain on their
+# seats.
 
 # Example:
-# Input: paths = [["London","New York"],["New York","Lima"],["Lima","Sao Paulo"]]
-# Output: "Sao Paulo" 
-# Explanation: Starting at "London" city you will reach "Sao Paulo" city which is
-# the destination city. Your trip consist of: "London" -> "New York" -> "Lima" -> "Sao Paulo".
+# Input: heights = [1,1,4,2,1,3]
+# Output: 3
+# Explanation: 
+# Current array : [1,1,4,2,1,3]
+# Target array  : [1,1,1,2,3,4]
+# On index 2 (0-based) we have 4 vs 1 so we have to move this student.
+# On index 4 (0-based) we have 1 vs 3 so we have to move this student.
+# On index 5 (0-based) we have 3 vs 4 so we have to move this student.
 
 # ==============================
 #         Solution
 # ==============================
 
 
-def destination_city(paths):
-    departures = set(city[0] for city in paths)
-
-    for path in paths:
-        if path[1] not in departures:
-            return path[1]
-
-
-def destination_city2(paths):
-    dic = {}
-    for path in paths:
-        for i, city in enumerate(path):
-            if i == 0:
-                dic[city] = dic.get(city, 0) + 1
-            else:
-                dic[city] = dic.get(city, 0) - 1
-    
-    for key in dic.keys():
-        if dic[key] == -1:
-            return key
+# time complexity depends on the sorted()
+def height_checher(heights):
+    sorted_heights = sorted(heights)
+    output = 0
+    for i in range(len(sorted_heights)):
+        if heights[i] != sorted_heights[i]:
+            output += 1
+    return output
 
 
-def destination_city3(paths):
-    departures = set(city[0] for city in paths)
-    destination = set(city[1] for city in paths)
-
-    return min(destination.difference(departures))
+# same as above but one-liner
+def height_checker2(heights):
+    return len([x for x in range(len(heights)) if heights[x] != sorted(heights)[x]])
 
 
-paths = [["London","New York"],["New York","Lima"],["Lima","Sao Paulo"]]
+heights = [1,1,4,2,1,3]
+heights2 = [5,1,2,3,4]
+heights3 = [1,2,3,4,5]
+print(height_checher(heights))
+print(height_checher(heights2))
+print(height_checher(heights3))
 
-print(destination_city(paths))
-print(destination_city2(paths))
-print(destination_city3(paths))
+print(height_checker2(heights))
+print(height_checker2(heights2))
+print(height_checker2(heights3))
 
