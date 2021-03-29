@@ -48,6 +48,9 @@ def height_checker2(heights):
     return len([x for x in range(len(heights)) if heights[x] != sorted(heights)[x]])
 
 
+#  return sum(h1 != h2 for h1, h2 in zip(heights, sorted(heights)))
+
+
 heights = [1,1,4,2,1,3]
 heights2 = [5,1,2,3,4]
 heights3 = [1,2,3,4,5]

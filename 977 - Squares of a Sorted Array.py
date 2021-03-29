@@ -8,54 +8,48 @@
 # Language: Python
 
 # Problem:
-# Given an array of integers nums and an integer target, return indices of the
-# two numbers such that they add up to target.
-# You may assume that each input would have exactly one solution, and you may
-# not use the same element twice.
-# You can return the answer in any order.
+# Given an integer array nums sorted in non-decreasing order, return an array
+# of the squares of each number sorted in non-decreasing order.
 
 # Example
-# Input: nums = [2,7,11,15], target = 9
-# Output: [0,1]
-# Output: Because nums[0] + nums[1] == 9, we return [0, 1].
+# Input: nums = [-4,-1,0,3,10]
+# Output: [0,1,9,16,100]
+# Explanation: After squaring, the array becomes [16,1,0,9,100].
+# After sorting, it becomes [0,1,9,16,100].
 
 # ==============================
 #         Solution
 # ==============================
 
-# 0(n^2)
-def two_sum(nums, target):
-    length = len(nums)
 
-    for i in range(length - 1):
-        for j in range(i + 1, length):
-            if nums[i] + nums[j] == target:
-                return [i, j]
+# 0(nlogn) because of tim sort
+def sorted_squares(nums):
+    output = []
+    for i in nums:
+        output.append(i*i)
+    return sorted(output)
 
 
-# 0(n)
-def two_sum2(nums, target):
-    if not nums:
-        return 'list is empty'
-    
-    if type(target) != int:
-        return 'target is not a valid integer'
+# one-liner version of above
+def sorted_squares2(nums):
+    return sorted([i*i for i in nums])
 
-    values = {}
 
-    for idx, num in enumerate(nums):
-        diff = target - num
-
-        if num in values.keys():
-            return [values[num], idx]
+# 0(n) - uses two pointer algorithm
+def sorted_squares3(nums):
+    output = [None for _ in nums]
+    l, r = 0, len(nums) - 1
+    for i in range(len(nums) - 1, -1, -1):
+        if abs(nums[l]) > abs(nums[r]):
+            output[i] = nums[l] ** 2
+            l += 1
         else:
-            values[diff] = idx
-    
-    return 'no match'
-        
+            output[i] = nums[r] ** 2
+            r -= 1
+    return output
 
-nums = [2,7,11,15]
-target = 9
 
-print(two_sum(nums, target))
-print(two_sum2(nums, target))
+nums = [-4,-1,0,3,10]
+print(sorted_squares(nums))
+print(sorted_squares2(nums))
+print(sorted_squares3(nums))
