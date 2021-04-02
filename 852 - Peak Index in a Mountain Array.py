@@ -32,14 +32,17 @@
 #         Solution
 # ==============================
 
+
+# 0(n)
 def peak_mountain(arr):
     n = len(arr)
-    peak = 0
+    peak_idx = 1
     if n == 3:
-        return arr[1]
+        return 1
     for i in range(1, n-2):
-        peak = max(arr[i], arr[i + 1])
-    return peak
+        if arr[peak_idx] < arr[i + 1]:
+            peak_idx = i + 1
+    return peak_idx
 
 
 arr = [0, 1, 0]
