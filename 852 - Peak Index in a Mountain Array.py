@@ -2,53 +2,51 @@
 #         Information
 # ==============================
 
-# Title: 709 - To Lower Case
-# Link: https://leetcode.com/problems/to-lower-case/
+# Title: 852 - Peak Index in a Mountain Array
+# Link: https://leetcode.com/problems/peak-index-in-a-mountain-array/
 # Difficulty: Easy
 # Language: Python
 
 # Problem:
-# Implement function ToLowerCase() that has a string parameter str, and returns the same string in lowercase.
+# Let's call an array arr a mountain if the following properties hold:
+
+# arr.length >= 3
+# There exists some i with 0 < i < arr.length - 1 such that:
+# arr[0] < arr[1] < ... arr[i-1] < arr[i]
+# arr[i] > arr[i+1] > ... > arr[arr.length - 1]
+# Given an integer array arr that is guaranteed to be a mountain, return any
+# i such that arr[0] < arr[1] < ... arr[i - 1] < arr[i] > arr[i + 1] > ... >
+# arr[arr.length - 1].
 
 # Example
-# Input: "Hello"
-# Output: "hello"
+# Input: arr = [0,1,0]
+# Output: 1
+
+# Input: arr = [0,2,1,0]
+# Output: 1
+
+# Input: arr = [0,10,5,2]
+# Output: 1
 
 # ==============================
 #         Solution
 # ==============================
 
-def to_lower_case(input):
-    if not input:
-        return None
-
-    output = ''
-
-    for c in input:
-        if 65 <= ord(c) <= 90:
-            output += chr(ord(c)+32)
-        else:
-            output += c
-    
-    return output
+def peak_mountain(arr):
+    n = len(arr)
+    peak = 0
+    if n == 3:
+        return arr[1]
+    for i in range(1, n-2):
+        peak = max(arr[i], arr[i + 1])
+    return peak
 
 
-def to_lower_case2(input):
-    if not input:
-        return None
-        
-    return ''.join([chr(ord(c) + 32) if 65 <= ord(c) <= 90 else c for c in input])
-
-
-
-input = 'Hello'
-input2 = ''
-
-print(to_lower_case(input))
-print(to_lower_case(input2))
-
-print(to_lower_case2(input))
-print(to_lower_case2(input2))
-
+arr = [0, 1, 0]
+arr2 = [0, 2, 1, 0]
+arr3 = [0, 10, 5, 2]
+print(peak_mountain(arr))
+print(peak_mountain(arr2))
+print(peak_mountain(arr3))
 
 
